@@ -1,0 +1,27 @@
+#################################################################
+################## DENY LISTING OF ws DIRECTORY ################# 
+#################################################################
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+Options -Indexes
+
+#################################################################
+############ ACTIVATION OF WEB SERVER REWRITE ENGINE ############ 
+#################################################################
+Options +FollowSymlinks
+RewriteEngine on
+
+#################################################################
+################ DEFINITION OF URL REWRITE RULES ################
+#################################################################
+
+
+# RULE n° 1 : REWRITES LAST URI TERM "register" IN "register.py"
+# Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/register IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/register.py
+RewriteRule   covidanalyst/register$ register.py
+
+# RULE n° 2 : REWRITES LAST URI TERM "login" IN "login.py"
+# Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/login IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/login.py
+RewriteRule   covidanalyst/login$ login.py
