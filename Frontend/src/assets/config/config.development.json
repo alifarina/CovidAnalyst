@@ -1,0 +1,10 @@
+{
+  "env": {
+    "name": "DEVELOPMENT"
+  },
+  "apiServer": {
+    "baseUrl": "https://www.gaalactic.fr/~sev5204e_11/ws/",
+    "loginUrl":"covidanalyst/login",
+    "registerUrl":"covidanalyst/register"
+  }
+}

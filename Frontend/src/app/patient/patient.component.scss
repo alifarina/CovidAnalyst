@@ -1,0 +1,20 @@
+.patient-background-image{
+    background-image: url('/assets/images/patient.jpg');
+}
+.patient-background-tint
+{
+    opacity: 0.9;
+    background-color: #11106b91;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.loginBox-width{
+    width: 800px;    
+}
+
+.loginBox-card{
+    min-height: 533px;
+    padding: 0px;
+}

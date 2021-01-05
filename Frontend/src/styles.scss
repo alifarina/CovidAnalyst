@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+  
+  .box .row {
+    // border: 1px dotted grey;
+  }
+  
+  .box .row.header {
+    flex: 0 1 auto;   
+  }
+  
+  .box .row.content {
+    flex: 1 1 auto;
+  }
+  
+  .box .row.footer {
+    flex: 0 1 40px;
+  }
+
+  body{
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #1f2f8bdb #4f65e4;   /* scroll thumb and track */
+  }
+  body::-webkit-scrollbar {
+    width: 8px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #4f65e4;        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1f2f8bdb;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 1px solid #1f2f8bdb;  /* creates padding around scroll thumb */
+  }
+  .loginBox
+  {         
+      background-color:#1f2f8bdb;
+      position: relative;      
+      box-shadow: 1px 2px 15px 1px #000000;
+      padding: 20px;
+      border: 0.5px solid white;
+      color:white
+  }
+  .m-l-20{
+    margin-left: 20%;
+  }
+  .loginBoxContainer{
+    display:flex;
+    align-items:center;
+    height: 100%; 
+    width: 100%; 
+    justify-content: center;
+  }
+
+  .fullWidthHeightBackground{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  } 

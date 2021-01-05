@@ -1,0 +1,9 @@
+{
+  "env": {
+    "name": "#{envName}"
+  },
+  "apiServer": {
+    "baseUrl": "https://www.gaalactic.fr/~sev5204e_11/ws/" ,
+    "loginUrl":"covidanalyst/login" 
+  }
+}

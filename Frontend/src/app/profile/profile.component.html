@@ -1,0 +1,83 @@
+<div style="position: relative;height: 100%;">
+    <div class="profile-background-image fullWidthHeightBackground"></div>
+    <div class="profile-background-tint"></div>
+    <div class="loginBoxContainer" *ngIf="profileBoxVisible" [@slideInOut]>
+        <div class="loginBox loginBox-width" [ngClass]="{'loginBox-width-mid':loginService.loginObject.loginTypeSelected.toLowerCase()=='gp'}">
+            <mat-card class="loginBox-card">
+                <div>
+                <mat-grid-list [cols]="colsValue" rowHeight="290">
+                    <mat-grid-tile [rowspan]="colsValue">
+                        <mat-icon class="profile-icon" [ngClass]="{'profile-icon-mid':loginService.loginObject.loginTypeSelected.toLowerCase()=='gp'}">account_box</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        
+                        <mat-list style="width: 100%;">
+                            <mat-list-item><h1 style="margin-left: 40%;">Details</h1></mat-list-item>
+                            <mat-list-item>
+                                <div style="width: 100%;padding-left: 10%;">
+                                    <div style="width: 40%;display: inline-block;"><label style="font-weight: bold;">Name:</label></div>
+                                    <div style="padding-left: 20%;display: inline-block;"><label>{{profileInfo.name}}</label></div>
+                                </div>                                
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <div style="width: 100%;padding-left: 10%;">
+                                <div style="width: 40%;display: inline-block;"><label style="font-weight: bold;">Sex:</label></div>
+                                <div style="padding-left: 20%;display: inline-block;"><label>{{profileInfo.sex}}</label></div>
+                            </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <div style="width: 100%;padding-left: 10%;">
+                                <div style="width: 40%;display: inline-block;"><label style="font-weight: bold;">Age:</label></div>
+                                <div style="padding-left: 20%;display: inline-block;"><label>{{profileInfo.age}}</label></div>
+                            </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <div style="width: 100%;padding-left: 10%;">
+                                <div style="width: 40%;display: inline-block;"><label style="font-weight: bold;">Location:</label></div>
+                                <div style="padding-left: 20%;display: inline-block;"><label>{{profileInfo.location}}</label></div>
+                            </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <div style="width: 100%;padding-left: 10%;">
+                                <div style="width: 40%;display: inline-block;"><label style="font-weight: bold;">Blood Group:</label></div>
+                                <div style="padding-left: 20%;display: inline-block;"><label>{{profileInfo.bloodGroup}}</label></div>
+                            </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                    </mat-list>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="loginService.loginObject.loginTypeSelected.toLowerCase()!='gp'">
+                        <div style="width: 100%;padding: 0 16px;margin-left: 10%;">
+                            <div><h1 style="margin-left: 20%;">Preconditions</h1></div>                        
+                            <div>
+                                <form [formGroup]="patientHealthInfoFormGroup" (ngSubmit)="healthDetailsSubmit($event)">
+                                    <ng-template matStepLabel>Fill out patient Health Information</ng-template>
+                                    <mat-checkbox [(ngModel)]="patientHealthInfo.hasHypertensionBool"
+                                        formControlName="hasHypertensionField">Hypertension</mat-checkbox>
+                                    <br />
+                                    <mat-checkbox [(ngModel)]="patientHealthInfo.hasDiabetesBool"
+                                        formControlName="hasDiabetesField">Diabetes</mat-checkbox>
+                                    <br />
+                                    <mat-checkbox [(ngModel)]="patientHealthInfo.hasCardiovascularDiseaseBool"
+                                        formControlName="hasCardiovascularDiseaseField">Cardiovascular Disease</mat-checkbox>
+                                    <br />
+                                    <mat-checkbox [(ngModel)]="patientHealthInfo.hasChronicRespiratoryDiseaseBool"
+                                        formControlName="hasChronicRespiratoryDiseaseField">Chronic Respiratory Disease
+                                    </mat-checkbox>
+                                    <br />
+                                    <br/>
+                                    <button type="submit" mat-raised-button mat-button color="primary">Update</button>                            
+                                </form>
+                            </div>
+                        </div>                                                
+                    </mat-grid-tile>                   
+                  </mat-grid-list>    
+                </div>              
+            </mat-card>
+        </div>
+    </div>
+</div>

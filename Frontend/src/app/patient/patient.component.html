@@ -1,0 +1,74 @@
+<div style="position: relative;height: 100%;">
+    <div class="patient-background-image fullWidthHeightBackground"></div>
+    <div class="patient-background-tint"></div>
+
+    <div class="loginBoxContainer" *ngIf="patientBoxVisible" [@slideInOut]>
+        <div class="loginBox loginBox-width">
+            <mat-card class="loginBox-card">
+                <mat-horizontal-stepper [linear]="isLinear">                  
+                        <mat-step [stepControl]="patientSymptomsInfoFormGroup">
+                            <form [formGroup]="patientSymptomsInfoFormGroup">
+                                <ng-template matStepLabel>Fill out patient Symptoms</ng-template>
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Oxygen Level</mat-label>
+                                    <input [(ngModel)]="patientSymptomsInfo.oxygenLevel" matInput required
+                                        formControlName="oxygenLevelTextField" type="number">
+                                    <mat-error>Oxygen Level is required</mat-error>
+                                    <mat-icon matSuffix>moving</mat-icon>
+                                </mat-form-field>
+                                <br />
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Heart Rate</mat-label>
+                                    <input [(ngModel)]="patientSymptomsInfo.heartRate" matInput required
+                                        formControlName="heartRateTextField" type="number">
+                                    <mat-error>Heart Rate is required</mat-error>
+                                    <mat-icon matSuffix>favorite_border</mat-icon>
+                                </mat-form-field>
+                                <br />
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Blood Pressure</mat-label>
+                                    <input [(ngModel)]="patientSymptomsInfo.bloodPressure" matInput required
+                                        formControlName="bloodPressureTextField" type="number">
+                                    <mat-error>Blood Pressure is required</mat-error>
+                                    <mat-icon matSuffix>invert_colors</mat-icon>
+                                </mat-form-field>
+                                <br />
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Temperature</mat-label>
+                                    <input [(ngModel)]="patientSymptomsInfo.temperature" matInput required
+                                        formControlName="temperatureTextField" type="number">
+                                    <mat-error>Temperature is required</mat-error>
+                                    <mat-icon matSuffix>sick</mat-icon>
+                                </mat-form-field>
+                                <br/>
+                                <mat-checkbox [(ngModel)]="patientSymptomsInfo.hasBreathlessnessBool"
+                                    formControlName="hasBreathlessnessField">Breathlessness</mat-checkbox>
+                                <br />
+                                <mat-checkbox [(ngModel)]="patientSymptomsInfo.hasFeverBool"
+                                    formControlName="hasFeverField">Fever</mat-checkbox>
+                                <br />
+                                <mat-checkbox [(ngModel)]="patientSymptomsInfo.hasLossOfTasteSmellBool"
+                                    formControlName="hasLossOfTasteSmellField">Loss of taste/smell</mat-checkbox>
+                                <br />
+                                <mat-checkbox [(ngModel)]="patientSymptomsInfo.hasDryCoughBool"
+                                    formControlName="hasDryCoughField">Dry Cough</mat-checkbox>
+                                <br />
+                                <mat-checkbox [(ngModel)]="patientSymptomsInfo.hasSoreThroatBool"
+                                    formControlName="hasSoreThroatField">Sore Throat</mat-checkbox>
+                                <br />
+                            </form>
+                            <br/>                            
+                            <button mat-raised-button mat-button matStepperNext color="primary">Next</button> 
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Done</ng-template>
+                            <p>You are now done.</p>
+                            <div>
+                              <button mat-raised-button mat-button matStepperPrevious color="secondary">Back</button>
+                              <button mat-raised-button mat-button (click)="submitStepperForm()" color="primary">Submit</button>
+                            </div>
+                          </mat-step>                    
+                </mat-horizontal-stepper>
+            </mat-card>
+        </div>
+    </div>
