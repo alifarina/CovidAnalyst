@@ -4,6 +4,32 @@
           <mat-icon>health_and_safety</mat-icon>
         </button>
         <span>Covid Analyst</span>
-        <span class="example-spacer"></span>        
+        <div *ngIf="loginService.loginObject.isAuthenticated">
+          <span style="margin-left: 100px;"></span>
+          <span>
+            <button mat-button [routerLink]="['profile']" routerLinkActive="activated-link">
+              View Profile
+            </button>
+          </span>
+          <span *ngIf="loginService.loginObject.loginTypeSelected==='GP'">
+            <button mat-button [routerLink]="['patientlist']" routerLinkActive="activated-link">
+              View List
+            </button>
+          </span>
+          <span *ngIf="loginService.loginObject.loginTypeSelected==='Patient'">
+            <button mat-button [routerLink]="['patientdailylist']" routerLinkActive="activated-link">
+              View Daily Entries
+            </button>
+          </span> 
+          <span *ngIf="loginService.loginObject.loginTypeSelected==='Patient'">
+            <button mat-button [routerLink]="['gplist']" routerLinkActive="activated-link">
+              Consult General Practitioners
+            </button>
+          </span>                  
+        </div>   
+        <span class="example-spacer"></span>  
+          <button mat-icon-button *ngIf="loginService.loginObject.isAuthenticated" (click)="onLogOut()" matTooltip="Log out" matTooltipPosition="below">
+            <mat-icon>power_settings_new</mat-icon>
+          </button>         
       </mat-toolbar>
   </div>
