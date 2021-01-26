@@ -6,8 +6,10 @@ import cgi
 import pymysql
 import uuid
 
-print('Access-Control-Allow-Origin: *\r\n')
-print('Content-type: application/json\n')
+print("Content-Type: application/json; charset=utf-8")
+print("Access-Control-Allow-Origin: *")
+print('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization, cache-control, content-type, expires, pragma')
+print()
 
 def returnHttpData():
     try:
@@ -19,7 +21,7 @@ def returnHttpData():
             httpDataKeys = list(formData)
             for key in httpDataKeys:
                 httpData[key] = (formData[key].value)
-            print(httpData)
+            #print(httpData)
             return httpData
         else:
             return None
@@ -40,6 +42,14 @@ def returnJSONHttpData():
             return None
     except e:
         print(e)
+
+
+def getQueryString():
+    qs=os.environ['QUERY_STRING']
+    if(len(qs)>0):
+        return qs
+    else:
+        return None
 
 connection = pymysql.connect(host='localhost',
 user='sev5204e_11',
@@ -93,6 +103,29 @@ def registerUserDetails(name,sex,age,location,bgroup,uId,loginTypeSelected):
         error = e
     return success,error
 
+def getregisterUserDetails():
+    dta=returnHttpData();    
+    if(dta):
+        id=dta["id"]
+        loginTypeSelected=dta["loginType"]
+        tableName = "Patient_Info" if loginTypeSelected.lower() == "patient" else "GP_Info"
+        idColumn = "Patient_Id" if loginTypeSelected.lower() == "patient" else "GP_Id"
+        with connection.cursor() as cursor:
+            #print("in execute sql")
+            clauseWhere="WHERE {0}='{1}'".format(idColumn,id)
+            sql = "SELECT * FROM `{0}` ".format(tableName)+clauseWhere                       
+            #print(sql)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if(len(result)>0):
+                return idColumn,result[0]
+            else:
+                return None
+    else:
+        return None
+
+    
+
 
 def registerUser():
     try:
@@ -127,6 +160,17 @@ def registerUser():
                 finalResult["success"]=False
                 finalResult["error"]='Invalid Data Object'
                 print(json.dumps(finalResult))
+        elif(reqMethod == 'get'):
+            idColumn,data=getregisterUserDetails()
+            if(data):
+                finalResult["success"]=True
+                finalResult["id"]=data[idColumn]
+                finalResult["age"]=data["Age"]
+                finalResult["location"]=data["Location"]
+                finalResult["sex"]=data["Sex"]
+                finalResult["bloodGroup"]=data["Blood_Group"]
+                finalResult["name"]=data["Name"]
+            print(json.dumps(finalResult))
     except e:
         print(e)
 
