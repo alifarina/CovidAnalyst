@@ -33,5 +33,7 @@ export class LoginServiceService {
     this.loginObject.isAuthenticated = false;
     this.loginObject.id = '';
     this.loginObject.loginTypeSelected = '';
+    this.loginObject.username='';
+    this.loginObject.password='';
   }
 }

@@ -3,33 +3,53 @@ import { Injectable } from '@angular/core';
 import { PatientListModel, PatientSymptomsInfo } from '../models/patient-model';
 import { AppConfigService } from './app-config.service';
 import { CommonService } from './common.service';
+import { LoginServiceService } from './login-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientDetailsService {
   readonly rootUrl = AppConfigService.settings.apiServer.baseUrl;
-  readonly dailyRecordUrl = AppConfigService.settings.apiServer.patientDailyRecord;
-  readonly allPatientsUrl= AppConfigService.settings.apiServer.allPatients;
+  readonly dailyRecordUrl =
+    AppConfigService.settings.apiServer.patientDailyRecord;
+  readonly allPatientsUrl = AppConfigService.settings.apiServer.allPatients;
   noCacheHeaders = new HttpHeaders({
     'Cache-Control': 'no-cache',
     Pragma: 'no-cache',
     Expires: '0',
+    'X-Auth': '',
   });
-  constructor(public commonService: CommonService) {}
+  constructor(
+    public commonService: CommonService,
+    public loginService: LoginServiceService
+  ) {}
 
-  getPatientHealthProfile(patientId:string)
-  {
-    let pram = new HttpParams().set('patientId', patientId).set('key','patientprofile');
-    
-    return this.commonService.getGetResponse(     
+  initAuthHeader(): void {
+    this.noCacheHeaders = this.noCacheHeaders.set(
+      'X-Auth',
+      this.loginService.loginObject.username +
+        ':' +
+        this.loginService.loginObject.password
+    );
+  }
+
+  getPatientHealthProfile(patientId: string) {
+    this.initAuthHeader();
+
+    let pram = new HttpParams()
+      .set('patientId', patientId)
+      .set('key', 'patientprofile');
+
+    return this.commonService.getGetResponse(
       this.rootUrl + this.allPatientsUrl,
       this.noCacheHeaders,
       pram
     );
   }
 
-  insertOrUpdatePatientProfile(obj:PatientListModel){
+  insertOrUpdatePatientProfile(obj: PatientListModel) {
+    this.initAuthHeader();
+
     return this.commonService.getPostResponse(
       obj,
       this.rootUrl + this.allPatientsUrl,
@@ -37,7 +57,7 @@ export class PatientDetailsService {
     );
   }
 
-  getPatientList(gpId:string): Promise<Object> {
+  getPatientList(gpId: string): Promise<Object> {
     // let listP = new Array<PatientListModel>();
     // let patient = new PatientListModel();
     // patient.patientId = 'da7b3722-5530-40db-8be1-1dfb8d1afc80';
@@ -67,9 +87,13 @@ export class PatientDetailsService {
     // return new Promise(function (resolve, reject) {
     //   resolve(listP);
     // });
-    let pram = new HttpParams().set('gpId', gpId).set('key','patientsWithConsultation');
-    
-    return this.commonService.getGetResponse(     
+    this.initAuthHeader();
+
+    let pram = new HttpParams()
+      .set('gpId', gpId)
+      .set('key', 'patientsWithConsultation');
+
+    return this.commonService.getGetResponse(
       this.rootUrl + this.allPatientsUrl,
       this.noCacheHeaders,
       pram
@@ -92,16 +116,20 @@ export class PatientDetailsService {
     // return new Promise(function (resolve, reject) {
     //   resolve(listP);
     // });
+    this.initAuthHeader();
+
     let pram = new HttpParams().set('id', patientId);
-    
-    return this.commonService.getGetResponse(     
+
+    return this.commonService.getGetResponse(
       this.rootUrl + this.dailyRecordUrl,
       this.noCacheHeaders,
       pram
     );
   }
 
-  patientSubmitDailyEntry(entry: PatientSymptomsInfo): Promise<Object>{
+  patientSubmitDailyEntry(entry: PatientSymptomsInfo): Promise<Object> {
+    this.initAuthHeader();
+
     return this.commonService.getPostResponse(
       entry,
       this.rootUrl + this.dailyRecordUrl,

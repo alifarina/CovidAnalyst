@@ -17,7 +17,7 @@ export class RegisterUserService {
   noCacheHeaders = new HttpHeaders({
     'Cache-Control': 'no-cache',
     Pragma: 'no-cache',
-    Expires: '0',
+    Expires: '0'    
   });
   constructor(public commonService: CommonService) {}
 

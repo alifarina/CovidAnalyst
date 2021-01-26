@@ -8,6 +8,7 @@ import {
   ConsultationDetails,
 } from '../models/consultations-model';
 import { from, Observable } from 'rxjs';
+import { LoginServiceService } from './login-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,23 @@ export class GpDetailsService {
     'Cache-Control': 'no-cache',
     Pragma: 'no-cache',
     Expires: '0',
+    'X-Auth': '',
   });
-  constructor(public commonService: CommonService) {}
+  constructor(
+    public commonService: CommonService,
+    public loginService: LoginServiceService
+  ) {}
 
+  initAuthHeader(): void {
+    this.noCacheHeaders = this.noCacheHeaders.set(
+      'X-Auth',
+      this.loginService.loginObject.username +
+        ':' +
+        this.loginService.loginObject.password
+    );
+  }
   getGpList(): Observable<Object> {
+    this.initAuthHeader();
     // let listP = new Array<GPDetails>();
     // let gp=new GPDetails();
     // gp.id="d6597164-9e1b-4a0e-be3c-a2a49b9cd67f";
@@ -53,7 +67,7 @@ export class GpDetailsService {
     // return new Promise(function (resolve, reject) {
     //   resolve(success);
     // });
-
+    this.initAuthHeader();
     return this.commonService.getPostResponse(
       obj,
       this.rootUrl + this.consultations,
@@ -62,6 +76,7 @@ export class GpDetailsService {
   }
 
   updateGpConsultation(obj: ConsultationDetails) {
+    this.initAuthHeader();
     return this.commonService.getPutResponse(
       obj,
       this.rootUrl + this.consultations,
@@ -70,6 +85,7 @@ export class GpDetailsService {
   }
 
   getAlreadyConsultedGPByPatient(patientId: string): Observable<Object> {
+    this.initAuthHeader();
     let pram = new HttpParams()
       .set('key', 'allGpbyPid')
       .set('value', patientId);
@@ -81,7 +97,11 @@ export class GpDetailsService {
       )
     );
   }
-  getConsultationByGPandPatientId(patientId: string,gpId:string): Observable<Object> {
+  getConsultationByGPandPatientId(
+    patientId: string,
+    gpId: string
+  ): Observable<Object> {
+    this.initAuthHeader();
     let pram = new HttpParams()
       .set('key', 'patientByGPandPatient')
       .set('patientId', patientId)

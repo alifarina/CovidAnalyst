@@ -95,7 +95,8 @@ export class LoginComponent implements OnInit {
           this.loginService.loginObject.isAuthenticated = resObj.success;
           this.loginService.loginObject.id = resObj.id;
           this.loginService.loginObject.loginTypeSelected = this.loginModel.loginTypeSelected;
-
+          this.loginService.loginObject.username=this.loginModel.username;
+          this.loginService.loginObject.password=this.loginModel.password;
           this.navigationService.changeNavigation('profile');
         } else {
           console.log('Login Error');
@@ -103,7 +104,8 @@ export class LoginComponent implements OnInit {
           errorData.header='Error';
           errorData.description='Incorrect Username or Password or Login Type';
           this.errorHandlerService.showDialog(errorData);
-
+          this.loginService.loginObject.username='';
+          this.loginService.loginObject.password='';
           this.loginService.loginObject.isAuthenticated = resObj.success;
           this.loginService.loginObject.id = '';
           this.loginService.loginObject.loginTypeSelected = '';
@@ -124,7 +126,8 @@ export class LoginComponent implements OnInit {
           this.loginService.loginObject.isAuthenticated = resObj.success;
           this.loginService.loginObject.id = resObj.id;   
           this.loginService.loginObject.loginTypeSelected = this.registerModel.loginTypeSelected;
-
+          this.loginService.loginObject.username=this.registerModel.username;
+          this.loginService.loginObject.password=this.registerModel.password;
           this.navigationService.changeNavigation('profile');
         } else {
           console.log('Register Error');
@@ -135,6 +138,8 @@ export class LoginComponent implements OnInit {
           this.loginService.loginObject.isAuthenticated = resObj.success;
           this.loginService.loginObject.id = '';
           this.loginService.loginObject.loginTypeSelected = '';
+          this.loginService.loginObject.username='';
+          this.loginService.loginObject.password='';
         }
       })
       .catch((error) => {

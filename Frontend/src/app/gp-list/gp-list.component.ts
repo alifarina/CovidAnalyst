@@ -16,6 +16,8 @@ import {
 import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsultationDialogComponent } from '../consultation-dialog/consultation-dialog.component';
+import { DisplayMessageDialogueModel } from '../models/display-message-dialogue.model';
+import { ErrorHandlerService } from '../services/error-handler.service.service';
 
 @Component({
   selector: 'app-gp-list',
@@ -53,6 +55,7 @@ export class GpListComponent implements OnInit {
     public gpDetailsService: GpDetailsService,
     public loginService: LoginServiceService,
     public navigationService: NavigationService,
+    private errorHandlerService: ErrorHandlerService,
     public dialog: MatDialog
   ) {}
 
@@ -148,6 +151,11 @@ export class GpListComponent implements OnInit {
       },
       (error) => {
         //handle your error here
+        this.loading = false;
+        let errorData=new DisplayMessageDialogueModel();
+        errorData.header='Error';
+        errorData.description='Some error occurred while getting list of GPs';
+        this.errorHandlerService.showDialog(errorData);
       },
       () => {
         //observable completes
