@@ -14,7 +14,12 @@ import { FilterControlsService } from './services/filter-controls.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { PatientComponent } from './patient/patient.component';
-import { ProfileComponent } from './profile/profile.component'
+import { ProfileComponent } from './profile/profile.component';
+import { DisplayMessageDialogueComponent } from './display-message-dialogue/display-message-dialogue.component';
+import { PatientListComponent } from './patient-list/patient-list.component';
+import { PatientDailyLogComponent } from './patient-daily-log/patient-daily-log.component';
+import { GpListComponent } from './gp-list/gp-list.component';
+import { ConsultationDialogComponent } from './consultation-dialog/consultation-dialog.component'
 
 export function initializeApp(appConfig: AppConfigService):any {
   return () => appConfig.load();
@@ -26,7 +31,12 @@ export function initializeApp(appConfig: AppConfigService):any {
     HeaderComponent,
     FooterComponent,
     PatientComponent,
-    ProfileComponent
+    ProfileComponent,
+    DisplayMessageDialogueComponent,
+    PatientListComponent,
+    PatientDailyLogComponent,
+    GpListComponent,
+    ConsultationDialogComponent
   ],
   imports: [
     BrowserModule,

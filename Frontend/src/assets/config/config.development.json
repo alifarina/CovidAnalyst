@@ -5,6 +5,9 @@
   "apiServer": {
     "baseUrl": "https://www.gaalactic.fr/~sev5204e_11/ws/",
     "loginUrl":"covidanalyst/login",
-    "registerUrl":"covidanalyst/register"
+    "registerUrl":"covidanalyst/register",
+    "patientDailyRecord":"covidanalyst/patient_daily_record",
+    "allPatients":"covidanalyst/allpatients",
+    "consultations":"covidanalyst/consultations"
   }
 }

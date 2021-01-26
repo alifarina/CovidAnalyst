@@ -1,8 +1,8 @@
-.patient-background-image{
+.patient-list-background-image{
     // background-image: url('/assets/images/patient.jpg');
     background-image: url('https://www.gaalactic.fr/~sev5204e_11/assets/images/patient.jpg');    
 }
-.patient-background-tint
+.patient-list-background-tint
 {
     opacity: 0.9;
     background-color: #11106b91;
@@ -12,10 +12,12 @@
 }
 
 .loginBox-width{
-    width: 800px;    
+    width: 1200px;    
 }
-
+.loginBox-width-mid{
+    width: 400px;    
+}
 .loginBox-card{
-    min-height: 533px;
+    min-height: 380px;
     padding: 0px;
 }

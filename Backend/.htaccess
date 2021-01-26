@@ -22,6 +22,18 @@ RewriteEngine on
 # Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/register IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/register.py
 RewriteRule   covidanalyst/register$ register.py
 
-# RULE n° 2 : REWRITES LAST URI TERM "login" IN "login.py"
+# RULE n° 2 : REWRITES LAST URI TERM "register" IN "register.py"
 # Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/login IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/login.py
 RewriteRule   covidanalyst/login$ login.py
+
+# RULE n° 3 : REWRITES LAST URI TERM "patient_daily_record" IN "patient_daily_record.py"
+# Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/patient_daily_record IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/patient_daily_record.py
+RewriteRule   covidanalyst/patient_daily_record$ patient_daily_record.py
+
+# RULE n° 4 : REWRITES LAST URI TERM "consultations" IN "consultations.py"
+# Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/consultations IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/consultations.py
+RewriteRule   covidanalyst/consultations$ consultations.py
+
+# RULE n° 5 : REWRITES LAST URI TERM "consultations" IN "consultations.py"
+# Ex. : URL https://www.gaalactic.fr/~login/covidanalyst/consultations IS CHANGED IN https://www.gaalactic.fr/~login/covidanalyst/all_patients.py
+RewriteRule   covidanalyst/allpatients$ all_patients.py

@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],  
 })
 export class AppComponent implements OnInit {
-  title = 'Frontend';
-  defaultRoute= '';
+  title = 'Frontend';  
 
-  constructor(private router: Router){
+  constructor(private navigationService: NavigationService){
 
   }
 
   ngOnInit(): void {
-  this.defaultRoute = 'login';
-  this.router.navigateByUrl(this.defaultRoute);
+    this.navigationService.defaultNavigation();
   }
 }

@@ -72,3 +72,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-size: 100% 100%;
     background-repeat: no-repeat;
   } 
+
+  .flex-align-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-10 {
+    padding: 10px;
+  }
+
+  .t-a-m{
+    text-align: center !important;
+  }

@@ -13,13 +13,13 @@ export class LoginServiceService {
   noCacheHeaders = new HttpHeaders({
     'Cache-Control': 'no-cache',
     Pragma: 'no-cache',
-    Expires: '0'
+    Expires: '0',
   });
   constructor(public commonService: CommonService) {
     this.loginObject = new LoginModel();
     this.loginObject.loginTypes = ['GP', 'Patient'];
     this.loginObject.isAuthenticated = false;
-    this.loginObject.loginTypeSelected="Patient";//comment this
+    //this.loginObject.loginTypeSelected="Patient";//comment this
   }
 
   validateLogin(obj: LoginModel): Promise<Object> {
@@ -28,5 +28,10 @@ export class LoginServiceService {
       this.rootUrl + this.loginUrl,
       this.noCacheHeaders
     );
+  }
+  logOut(): void {
+    this.loginObject.isAuthenticated = false;
+    this.loginObject.id = '';
+    this.loginObject.loginTypeSelected = '';
   }
 }

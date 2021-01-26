@@ -1,8 +1,8 @@
-.profile-background-image{
-    // background-image: url('/assets/images/patient.jpg');
+.patient-list-background-image{
+    //background-image: url('/assets/images/patient.jpg');
     background-image: url('https://www.gaalactic.fr/~sev5204e_11/assets/images/patient.jpg');    
 }
-.profile-background-tint
+.patient-list-background-tint
 {
     opacity: 0.9;
     background-color: #11106b91;
@@ -12,7 +12,7 @@
 }
 
 .loginBox-width{
-    width: 800px;    
+    width: 1200px;    
 }
 .loginBox-width-mid{
     width: 400px;    
@@ -22,16 +22,7 @@
     padding: 0px;
 }
 
-.profile-icon{
-    height: auto; 
-    width: auto;
-    font-size: 300px;
-    border: 3px solid; 
-    border-radius: 50px;
-    color:#0e0871c9
+.covidPositiveField{
+    background-color: red;
+    color: white;
 }
-
-.profile-icon-mid{
-    font-size: 200px;
-}
-

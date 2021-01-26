@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SlideInOutAnimation } from '../../imports/custom-animations';
 import { LoginServiceService } from '../services/login-service.service';
 import { RegisterUserService } from '../services/register-user.service';
+import { ErrorHandlerService } from '../services/error-handler.service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   LoginModel,
@@ -10,6 +11,8 @@ import {
   RegisterResponseModel,
 } from '../models/login-model';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { NavigationService } from '../services/navigation.service';
+import { DisplayMessageDialogueModel } from '../models/display-message-dialogue.model';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +30,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public loginService: LoginServiceService,
     public registerService: RegisterUserService,
+    public navigationService: NavigationService,
+    private errorHandlerService: ErrorHandlerService,
     formBuilder: FormBuilder
   ) {
     this._formBuilder = formBuilder;
@@ -52,28 +57,32 @@ export class LoginComponent implements OnInit {
   }
   loginBoxVisible: boolean = false;
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loginBoxVisible = true;
-    }, 500);
+    if (this.loginService.loginObject.isAuthenticated) {
+      this.navigationService.changeNavigation('profile');
+    } else {
+      setTimeout(() => {
+        this.loginBoxVisible = true;
+      }, 500);
 
-    this.loginForm = this._formBuilder.group({
-      usernameTextField: ['', [Validators.required]],
-      passwordTextField: ['', [Validators.required]],
-      loginTypeField: ['', [Validators.required]],
-    });
-    this.registerForm = this._formBuilder.group({
-      usernameTextField: ['', [Validators.required]],
-      passwordTextField: ['', [Validators.required]],
-      confirmPasswordTextField: ['', [Validators.required]],
-      fullNameTextField: ['', [Validators.required]],
-      ageTextField: ['', [Validators.required]],
-      loginTypeField: ['', [Validators.required]],
-      sexTextField: ['', [Validators.required]],
-      locationTextField: ['', [Validators.required]],
-      bloodGroupField: ['', [Validators.required]],
-    });
-    this.resetLoginForm();
-    this.resetRegisterForm();
+      this.loginForm = this._formBuilder.group({
+        usernameTextField: ['', [Validators.required]],
+        passwordTextField: ['', [Validators.required]],
+        loginTypeField: ['', [Validators.required]],
+      });
+      this.registerForm = this._formBuilder.group({
+        usernameTextField: ['', [Validators.required]],
+        passwordTextField: ['', [Validators.required]],
+        confirmPasswordTextField: ['', [Validators.required]],
+        fullNameTextField: ['', [Validators.required]],
+        ageTextField: ['', [Validators.required]],
+        loginTypeField: ['', [Validators.required]],
+        sexTextField: ['', [Validators.required]],
+        locationTextField: ['', [Validators.required]],
+        bloodGroupField: ['', [Validators.required]],
+      });
+      this.resetLoginForm();
+      this.resetRegisterForm();
+    }
   }
   loginSubmit($event): void {
     // pass this.loginModel ahead
@@ -85,8 +94,19 @@ export class LoginComponent implements OnInit {
           console.log('Login successfull');
           this.loginService.loginObject.isAuthenticated = resObj.success;
           this.loginService.loginObject.id = resObj.id;
+          this.loginService.loginObject.loginTypeSelected = this.loginModel.loginTypeSelected;
+
+          this.navigationService.changeNavigation('profile');
         } else {
-          alert('Login Error');
+          console.log('Login Error');
+          let errorData=new DisplayMessageDialogueModel();
+          errorData.header='Error';
+          errorData.description='Incorrect Username or Password or Login Type';
+          this.errorHandlerService.showDialog(errorData);
+
+          this.loginService.loginObject.isAuthenticated = resObj.success;
+          this.loginService.loginObject.id = '';
+          this.loginService.loginObject.loginTypeSelected = '';
         }
       })
       .catch((error) => {
@@ -94,7 +114,7 @@ export class LoginComponent implements OnInit {
       });
     $event.stopPropagation();
   }
-  registerSubmit($event): void { 
+  registerSubmit($event): void {
     this.registerService
       .registerUser(this.registerModel)
       .then((res) => {
@@ -102,9 +122,19 @@ export class LoginComponent implements OnInit {
         if (resObj.success) {
           console.log('Register successfull');
           this.loginService.loginObject.isAuthenticated = resObj.success;
-          this.loginService.loginObject.id = resObj.id;
+          this.loginService.loginObject.id = resObj.id;   
+          this.loginService.loginObject.loginTypeSelected = this.registerModel.loginTypeSelected;
+
+          this.navigationService.changeNavigation('profile');
         } else {
-          alert('Register Error');
+          console.log('Register Error');
+          let errorData=new DisplayMessageDialogueModel();
+          errorData.header='Error';
+          errorData.description='Some error occurred while registering user';
+          this.errorHandlerService.showDialog(errorData);
+          this.loginService.loginObject.isAuthenticated = resObj.success;
+          this.loginService.loginObject.id = '';
+          this.loginService.loginObject.loginTypeSelected = '';
         }
       })
       .catch((error) => {

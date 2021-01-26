@@ -5,6 +5,7 @@ export class LoginModel {
   isAuthenticated: boolean;
   loginTypes: string[];
   loginTypeSelected: string;
+  name: string;
 }
 export class LoginResponse {
   success: boolean;

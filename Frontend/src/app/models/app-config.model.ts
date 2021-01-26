@@ -5,6 +5,9 @@ export interface IAppConfig {
   apiServer: {
     baseUrl: string;  
     loginUrl: string; 
+    patientDailyRecord: string;
+    consultations: string;
     registerUrl: string;
+    allPatients: string;
   };
 }
