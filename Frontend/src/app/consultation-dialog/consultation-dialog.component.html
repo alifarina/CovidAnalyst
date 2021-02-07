@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{data.header}}</h2>
+<mat-dialog-content class="mat-typography">
+<mat-checkbox [disabled]="(loginService.loginObject.loginTypeSelected!=='GP')?true:false" [(ngModel)]="data.isCovidTestRequiredBool">Covid Test Required</mat-checkbox>
+<br />
+<br />
+<mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Consultation:</mat-label>
+    <textarea [disabled]="(loginService.loginObject.loginTypeSelected!=='GP')?true:false" rows="10" cols="20" matInput [(ngModel)]="data.consultationText"></textarea>
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+<button mat-button [mat-dialog-close]>Close</button>
+<button *ngIf="loginService.loginObject.loginTypeSelected==='GP'" mat-button (click)="onUpdateClick()">Update</button>
+</mat-dialog-actions>
